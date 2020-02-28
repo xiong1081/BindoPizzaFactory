@@ -13,6 +13,11 @@
 		09169E892409393C003BC1D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09169E872409393C003BC1D0 /* Main.storyboard */; };
 		09169E8B24093945003BC1D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09169E8A24093945003BC1D0 /* Assets.xcassets */; };
 		09169E8E24093945003BC1D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09169E8C24093945003BC1D0 /* LaunchScreen.storyboard */; };
+		09169E962409466C003BC1D0 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09169E952409466B003BC1D0 /* Extension.swift */; };
+		09169E9824094A90003BC1D0 /* IMG_5134.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 09169E9724094A90003BC1D0 /* IMG_5134.jpeg */; };
+		09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C4C240954D500E546A3 /* PizzaChefViewController.swift */; };
+		09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */; };
+		09480C53240958CD00E546A3 /* PizzaChef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C52240958CD00E546A3 /* PizzaChef.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		09169E8A24093945003BC1D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09169E8D24093945003BC1D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09169E8F24093945003BC1D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09169E952409466B003BC1D0 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		09169E9724094A90003BC1D0 /* IMG_5134.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_5134.jpeg; sourceTree = "<group>"; };
+		09480C4C240954D500E546A3 /* PizzaChefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaChefViewController.swift; sourceTree = "<group>"; };
+		09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaTableViewCell.swift; sourceTree = "<group>"; };
+		09480C52240958CD00E546A3 /* PizzaChef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaChef.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +69,15 @@
 				09169E812409393C003BC1D0 /* AppDelegate.swift */,
 				09169E832409393C003BC1D0 /* SceneDelegate.swift */,
 				09169E852409393C003BC1D0 /* ViewController.swift */,
+				09480C4C240954D500E546A3 /* PizzaChefViewController.swift */,
+				09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */,
+				09480C52240958CD00E546A3 /* PizzaChef.swift */,
+				09169E952409466B003BC1D0 /* Extension.swift */,
 				09169E872409393C003BC1D0 /* Main.storyboard */,
 				09169E8A24093945003BC1D0 /* Assets.xcassets */,
 				09169E8C24093945003BC1D0 /* LaunchScreen.storyboard */,
 				09169E8F24093945003BC1D0 /* Info.plist */,
+				09169E9724094A90003BC1D0 /* IMG_5134.jpeg */,
 			);
 			path = BindoPizzaFactory;
 			sourceTree = "<group>";
@@ -127,6 +142,7 @@
 			files = (
 				09169E8E24093945003BC1D0 /* LaunchScreen.storyboard in Resources */,
 				09169E8B24093945003BC1D0 /* Assets.xcassets in Resources */,
+				09169E9824094A90003BC1D0 /* IMG_5134.jpeg in Resources */,
 				09169E892409393C003BC1D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,9 +154,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09480C53240958CD00E546A3 /* PizzaChef.swift in Sources */,
 				09169E862409393C003BC1D0 /* ViewController.swift in Sources */,
 				09169E822409393C003BC1D0 /* AppDelegate.swift in Sources */,
 				09169E842409393C003BC1D0 /* SceneDelegate.swift in Sources */,
+				09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */,
+				09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */,
+				09169E962409466C003BC1D0 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bear.BindoPizzaFactory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -312,7 +332,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bear.BindoPizzaFactory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

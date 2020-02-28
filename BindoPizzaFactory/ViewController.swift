@@ -10,11 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var summaryView: UIView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        summaryView.addBorder()
+        for view in bottomStackView.arrangedSubviews {
+            view.addBorder()
+        }
+        for i in 0...6 {
+            let chef = PizzaChef(name: "Pizza Chef \(i)", time: i+1)
+            let viewController = storyboard?.instantiateViewController(identifier: "PizzaChefViewController")
+            if let pizzaChefVC = viewController as? PizzaChefViewController {
+                pizzaChefVC.chef = chef
+                addChild(pizzaChefVC)
+                stackView.addArrangedSubview(pizzaChefVC.view)
+                pizzaChefVC.didMove(toParent: self)
+            }
+        }
     }
-
 
 }
 
