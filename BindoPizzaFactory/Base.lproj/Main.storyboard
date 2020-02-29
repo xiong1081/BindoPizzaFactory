@@ -29,6 +29,7 @@
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="ISl-Hs-bW3" firstAttribute="top" secondItem="iVu-1A-dSa" secondAttribute="top" constant="8" id="Hsf-3u-kK5"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ISl-Hs-bW3" secondAttribute="trailing" constant="69.5" id="jFT-0Y-oDc"/>
                                     <constraint firstItem="ISl-Hs-bW3" firstAttribute="leading" secondItem="iVu-1A-dSa" secondAttribute="leading" constant="8" id="tbb-nt-H6V"/>
                                     <constraint firstAttribute="height" constant="140" id="wUF-7O-XSy"/>
                                 </constraints>
@@ -50,6 +51,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" id="eTb-Lf-pvb"/>
                                             <constraint firstAttribute="trailing" secondItem="f8j-xa-nim" secondAttribute="trailing" constant="8" id="oeb-ks-GHt"/>
+                                            <constraint firstItem="f8j-xa-nim" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="srj-yz-Uoj" secondAttribute="leading" constant="37" id="u8S-5a-nx6"/>
                                             <constraint firstItem="f8j-xa-nim" firstAttribute="top" secondItem="srj-yz-Uoj" secondAttribute="top" constant="8" id="uPU-jp-hf6"/>
                                         </constraints>
                                     </view>
@@ -63,13 +65,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Spc-yJ-VbA">
-                                                <rect key="frame" x="24" y="8" width="99" height="29"/>
+                                                <rect key="frame" x="29.5" y="8" width="88" height="29"/>
                                                 <color key="backgroundColor" red="0.0" green="0.72549019607843135" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="99" id="1UC-jR-2jE"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="Add 10 Pizza"/>
+                                                <connections>
+                                                    <action selector="add10Pizza:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m5g-Cw-tS3"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -92,13 +94,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0r-yl-D96">
-                                                <rect key="frame" x="17.5" y="8" width="111" height="29"/>
+                                                <rect key="frame" x="24" y="8" width="98" height="29"/>
                                                 <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="111" id="Gml-Eh-wR3"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="Add 100 Pizza"/>
+                                                <connections>
+                                                    <action selector="add100Pizza:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WtH-Nu-fw1"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -122,6 +124,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbV-8e-Cmt">
                                                 <rect key="frame" x="49" y="71" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="tapSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="vUm-uc-eaG"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,7 +141,7 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Nt-wl-lc7">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0Nt-wl-lc7">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="628"/>
                             </stackView>
                         </subviews>
@@ -200,8 +205,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining Pizza:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKa-bA-9br">
-                                <rect key="frame" x="8" y="212.5" width="96" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining Pizza: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKa-bA-9br">
+                                <rect key="frame" x="8" y="212.5" width="107" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -232,7 +237,6 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="PIZZA_0001" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="648-XJ-ux8">
                                                     <rect key="frame" x="8" y="9" width="80" height="15"/>
-                                                    <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="gGA-pm-Hmq"/>
                                                     </constraints>
@@ -276,6 +280,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ORP-ep-rbf" id="to7-6S-iQX"/>
+                                    <outlet property="delegate" destination="ORP-ep-rbf" id="t8s-g2-M9y"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
@@ -311,6 +319,8 @@
                         <outlet property="nameLabel" destination="6pR-DG-ctQ" id="5BV-EN-fk8"/>
                         <outlet property="remainLabel" destination="mKa-bA-9br" id="aWP-Zx-KwW"/>
                         <outlet property="speedLabel" destination="anC-PF-bre" id="YOJ-Ue-RtH"/>
+                        <outlet property="tableView" destination="Nju-fm-HOu" id="aBr-KZ-49W"/>
+                        <outlet property="workSwitch" destination="z0h-uf-JOm" id="rjI-FY-U5r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R38-ta-KuD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

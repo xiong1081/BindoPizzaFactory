@@ -8,10 +8,13 @@
 
 import Foundation
 
-struct PizzaChef {
-    
+class PizzaChef {
     let name: String
     let time: Int
     var pizzas: [String] = []
     
+    init(name: String, time: Int) {
+        self.name = name
+        self.time = time
+    }
 }

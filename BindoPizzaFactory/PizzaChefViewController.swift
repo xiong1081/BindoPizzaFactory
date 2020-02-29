@@ -13,26 +13,61 @@ class PizzaChefViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var remainLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var workSwitch: UISwitch!
     
     var chef: PizzaChef?
+    var timer: Timer?
+    var pizzaNumChanged: ((Int)->())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBorder()
+        if let chef = chef {
+            nameLabel.text = chef.name
+            speedLabel.text = "Speed: \(chef.time) second per pizza"
+            timer = Timer(fire: Date(), interval: TimeInterval(chef.time), repeats: true) { (timer) in
+                if chef.pizzas.count == 0 { return }
+                chef.pizzas.removeFirst()
+                self.refreshUI()
+                if let changed = self.pizzaNumChanged {
+                    changed(chef.pizzas.count)
+                }
+            }
+            RunLoop.current.add(timer!, forMode: .common)
+        }
+        tableView.separatorStyle = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    func refreshUI() {
+        tableView.reloadData()
+        refreshRemain()
+    }
+    
+    func refreshRemain() {
+        remainLabel.text = "Remaining Pizza: \(chef?.pizzas.count ?? 0)"
     }
     
     @IBAction func tapSwitch(_ sender: UISwitch) {
-        
+        timer?.fireDate = sender.isOn ? Date() : Date.distantFuture
     }
     
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chef?.pizzas.count ?? 0
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PizzaTableViewCell") as! PizzaTableViewCell
+        cell.nameLabel.text = chef?.pizzas[indexPath.row]
+        return cell
+    }
+    
 }

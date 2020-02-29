@@ -14,7 +14,7 @@ class PizzaTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
     
     @IBAction func tapEdit(_ sender: UIButton) {
