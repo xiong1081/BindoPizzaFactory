@@ -27,11 +27,14 @@ class PizzaChefViewController: UIViewController {
             nameLabel.text = chef.name
             speedLabel.text = "Speed: \(chef.time) second per pizza"
             timer = Timer(fire: Date(), interval: TimeInterval(chef.time), repeats: true) { (timer) in
-                if chef.pizzas.count == 0 { return }
-                chef.pizzas.removeFirst()
-                self.refreshUI()
-                if let changed = self.pizzaNumChanged {
-                    changed(chef.pizzas.count)
+                if chef.pizzas.count == 0 {
+                    timer.fireDate = Date.distantFuture
+                } else {
+                    chef.pizzas.removeFirst()
+                    self.refreshUI()
+                    if let changed = self.pizzaNumChanged {
+                        changed(chef.pizzas.count)
+                    }
                 }
             }
             RunLoop.current.add(timer!, forMode: .common)
@@ -53,7 +56,23 @@ class PizzaChefViewController: UIViewController {
     }
     
     @IBAction func tapSwitch(_ sender: UISwitch) {
-        timer?.fireDate = sender.isOn ? Date() : Date.distantFuture
+        resetFireDate()
+    }
+    
+    func resetFireDate() {
+        if workSwitch.isOn {
+            let date = Date().addingTimeInterval(TimeInterval(chef?.time ?? 0))
+            timer?.fireDate = date
+        } else {
+            timer?.fireDate = Date.distantFuture
+        }
+    }
+    
+    @IBAction func tapEdit(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func tapDelegate(_ sender: UIButton) {
     }
     
 }

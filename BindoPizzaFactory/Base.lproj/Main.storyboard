@@ -252,6 +252,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="tapEdit:" destination="HTU-e5-MaW" eventType="touchUpInside" id="81L-aC-4Pa"/>
+                                                        <action selector="tapEdit:" destination="ORP-ep-rbf" eventType="touchUpInside" id="xbT-rz-miM"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EcZ-LQ-ZcZ">
@@ -262,6 +263,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="tapDelegate:" destination="HTU-e5-MaW" eventType="touchUpInside" id="aQG-Uj-tW1"/>
+                                                        <action selector="tapDelegate:" destination="ORP-ep-rbf" eventType="touchUpInside" id="xB4-vK-Mue"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

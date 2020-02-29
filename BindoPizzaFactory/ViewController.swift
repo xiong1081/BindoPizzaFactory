@@ -49,7 +49,7 @@ class ViewController: UIViewController {
             summaryView.addSubview(label)
             summaryLabels.append(label)
         }
-        for i in 0...999 {
+        for i in 0...9 {
             pizzaId += 1
             let pizza = String(format: "PIZZA_%04d", pizzaId)
             viewControllers[i%5].chef?.pizzas.append(pizza)
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
     @IBAction func tapSwitch(_ sender: UISwitch) {
         for pcvc in viewControllers {
             pcvc.workSwitch.isOn = sender.isOn
-            pcvc.timer?.fireDate = sender.isOn ? Date() : Date.distantFuture
+            pcvc.resetFireDate()
         }
     }
     
@@ -86,6 +86,7 @@ class ViewController: UIViewController {
         for (i, pcvc) in viewControllers.enumerated() {
             self.refreshSummaryLabel(viewController: pcvc, index: i)
             pcvc.refreshUI()
+            pcvc.timer?.fireDate = Date()
         }
     }
     
