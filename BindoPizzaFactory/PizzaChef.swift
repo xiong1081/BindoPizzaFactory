@@ -11,7 +11,7 @@ import Foundation
 class PizzaChef {
     let name: String
     let time: Int
-    var pizzas: [String] = []
+    var pizzas: [Pizza] = []
     
     init(name: String, time: Int) {
         self.name = name

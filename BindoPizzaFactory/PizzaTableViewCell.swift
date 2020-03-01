@@ -12,6 +12,12 @@ class PizzaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     
+    var pizza: Pizza? {
+        didSet {
+            nameLabel.text = pizza?.name
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

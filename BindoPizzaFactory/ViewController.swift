@@ -49,9 +49,10 @@ class ViewController: UIViewController {
             summaryView.addSubview(label)
             summaryLabels.append(label)
         }
-        for i in 0...9 {
+        for i in 0...999 {
             pizzaId += 1
-            let pizza = String(format: "PIZZA_%04d", pizzaId)
+            let name = String(format: "PIZZA_%04d", pizzaId)
+            let pizza = Pizza(name: name)
             viewControllers[i%5].chef?.pizzas.append(pizza)
         }
     }
@@ -80,7 +81,8 @@ class ViewController: UIViewController {
     func addPizza(count: Int) {
         for i in 0..<count {
             pizzaId += 1
-            let pizza = String(format: "PIZZA_%04d", pizzaId)
+            let name = String(format: "PIZZA_%04d", pizzaId)
+            let pizza = Pizza(name: name)
             viewControllers[i%chefCount].chef?.pizzas.append(pizza)
         }
         for (i, pcvc) in viewControllers.enumerated() {

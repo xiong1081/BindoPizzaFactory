@@ -17,10 +17,10 @@ extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: 1)
     }
     
-    class var line: UIColor {
-        get { UIColor(named: "line")! }
-    }
-    
+    class var line: UIColor { UIColor(named: "line")! }
+    class var background: UIColor { UIColor(named: "background")! }
+    class var selectedBackground: UIColor { UIColor(named: "selectedBackground")! }
+
 }
 
 extension UIView {
@@ -56,4 +56,17 @@ extension UIView {
         self.layer.borderWidth = 0.5
     }
     
+}
+
+extension UIImage {
+    class func image(of color: UIColor) -> UIImage {
+        let size = CGSize(width: 1, height: 1)
+        UIGraphicsBeginImageContextWithOptions(size, true, UIScreen.main.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(origin: .zero, size: size))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }

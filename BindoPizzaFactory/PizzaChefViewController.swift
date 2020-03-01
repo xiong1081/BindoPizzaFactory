@@ -69,7 +69,13 @@ class PizzaChefViewController: UIViewController {
     }
     
     @IBAction func tapEdit(_ sender: UIButton) {
-        
+        let vc = storyboard?.instantiateViewController(identifier: "PizzaEditViewController")
+        guard let pevc = vc as? PizzaEditViewController else { return }
+        guard let cell = sender.superview?.superview as? PizzaTableViewCell else { return }
+        pevc.popoverPresentationController?.sourceView = sender
+        pevc.popoverPresentationController?.sourceRect = CGRect(x: 88, y: 22, width: 22, height: 22)
+        pevc.pizza = cell.pizza
+        show(pevc, sender: self)
     }
     
     @IBAction func tapDelegate(_ sender: UIButton) {
@@ -85,7 +91,7 @@ extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PizzaTableViewCell") as! PizzaTableViewCell
-        cell.nameLabel.text = chef?.pizzas[indexPath.row]
+        cell.pizza = chef?.pizzas[indexPath.row]
         return cell
     }
     
