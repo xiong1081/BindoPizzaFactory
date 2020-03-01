@@ -21,6 +21,8 @@
 		09480C55240A7B3300E546A3 /* Pizza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C54240A7B3300E546A3 /* Pizza.swift */; };
 		09480C57240A894900E546A3 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C56240A894900E546A3 /* SegmentControl.swift */; };
 		09480C59240A9CD100E546A3 /* PizzaEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */; };
+		09480C5B240BE25E00E546A3 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C5A240BE25E00E546A3 /* Hint.swift */; };
+		09480C5D240BE61C00E546A3 /* Hint.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09480C5C240BE61C00E546A3 /* Hint.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		09480C54240A7B3300E546A3 /* Pizza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
 		09480C56240A894900E546A3 /* SegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaEditViewController.swift; sourceTree = "<group>"; };
+		09480C5A240BE25E00E546A3 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
+		09480C5C240BE61C00E546A3 /* Hint.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Hint.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 				09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */,
 				09480C52240958CD00E546A3 /* PizzaChef.swift */,
 				09480C54240A7B3300E546A3 /* Pizza.swift */,
+				09480C5A240BE25E00E546A3 /* Hint.swift */,
+				09480C5C240BE61C00E546A3 /* Hint.xib */,
 				09169E952409466B003BC1D0 /* Extension.swift */,
 				09480C56240A894900E546A3 /* SegmentControl.swift */,
 				09169E872409393C003BC1D0 /* Main.storyboard */,
@@ -150,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09169E8E24093945003BC1D0 /* LaunchScreen.storyboard in Resources */,
+				09480C5D240BE61C00E546A3 /* Hint.xib in Resources */,
 				09169E8B24093945003BC1D0 /* Assets.xcassets in Resources */,
 				09169E9824094A90003BC1D0 /* IMG_5134.jpeg in Resources */,
 				09169E892409393C003BC1D0 /* Main.storyboard in Resources */,
@@ -172,6 +179,7 @@
 				09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */,
 				09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */,
 				09169E962409466C003BC1D0 /* Extension.swift in Sources */,
+				09480C5B240BE25E00E546A3 /* Hint.swift in Sources */,
 				09480C57240A894900E546A3 /* SegmentControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

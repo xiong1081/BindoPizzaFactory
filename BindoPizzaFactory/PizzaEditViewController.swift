@@ -45,6 +45,12 @@ class PizzaEditViewController: UIViewController {
     }
     
     @IBAction func tapDone(_ sender: UIBarButtonItem) {
+        guard let pizza = pizza else { return }
+        if pizza.completed {
+            self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
+        } else {
+            
+        }
     }
     
     func createToppingControl() -> UIButton {

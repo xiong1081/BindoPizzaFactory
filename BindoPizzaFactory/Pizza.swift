@@ -45,8 +45,13 @@ struct PizzaToppings: OptionSet {
     }
 }
 
-struct Pizza {
+class Pizza {
     let name: String
     var size: PizzaSize = .medium
     var toppings: PizzaToppings? = nil
+    var completed = false
+    
+    init(name: String) {
+        self.name = name
+    }
 }

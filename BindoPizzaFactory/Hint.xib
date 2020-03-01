@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="Hint" customModule="BindoPizzaFactory" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1a-2M-5H0">
+                    <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hint" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1d-yF-wW3">
+                    <rect key="frame" x="8" y="4" width="72" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="i1a-2M-5H0" secondAttribute="trailing" id="52x-Zj-6k2"/>
+                <constraint firstItem="h1d-yF-wW3" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="4" id="AqO-ga-fex"/>
+                <constraint firstItem="h1d-yF-wW3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="OHJ-Hv-ype"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="h1d-yF-wW3" secondAttribute="trailing" constant="8" id="Piu-p2-NNt"/>
+                <constraint firstAttribute="bottom" secondItem="i1a-2M-5H0" secondAttribute="bottom" id="W08-WD-9if"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="h1d-yF-wW3" secondAttribute="bottom" constant="4" id="f4k-tk-x7K"/>
+                <constraint firstItem="i1a-2M-5H0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jB1-Uc-qIF"/>
+                <constraint firstItem="i1a-2M-5H0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wce-RT-PVA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="label" destination="h1d-yF-wW3" id="tpO-Bb-Bo1"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="86"/>
+        </view>
+    </objects>
+</document>

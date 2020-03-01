@@ -30,7 +30,8 @@ class PizzaChefViewController: UIViewController {
                 if chef.pizzas.count == 0 {
                     timer.fireDate = Date.distantFuture
                 } else {
-                    chef.pizzas.removeFirst()
+                    let pizza = chef.pizzas.removeFirst()
+                    pizza.completed = true
                     self.refreshUI()
                     if let changed = self.pizzaNumChanged {
                         changed(chef.pizzas.count)

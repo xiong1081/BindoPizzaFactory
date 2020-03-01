@@ -40,11 +40,16 @@ extension UIView {
     
     @discardableResult
     func addConstraints(attributes: [NSLayoutConstraint.Attribute],
-                        equalTo view: UIView) -> UIView {
+                        equalTo view: UIView,
+                        inset: CGFloat = 0) -> UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         var constraints: [NSLayoutConstraint] = []
         for attribute in attributes {
-            let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1, constant: 0)
+            var constant = inset
+            if attribute == .right || attribute == .bottom {
+                constant = -inset
+            }
+            let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1, constant: constant)
             constraints.append(constraint)
         }
         NSLayoutConstraint.activate(constraints)
