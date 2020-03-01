@@ -22,7 +22,12 @@ enum PizzaSize: String, CaseIterable {
     }
 }
 
-struct PizzaToppings: OptionSet {
+struct PizzaToppings: OptionSet, CaseIterable {
+    typealias AllCases = [PizzaToppings]
+    static var allCases: [PizzaToppings] {
+        [.roastBeef, .bellPappers, .mushrooms, .onions, .tomatoes, .marinara]
+    }
+    
     let rawValue: Int
     
     static let roastBeef   = PizzaToppings(rawValue: 1 << 0)

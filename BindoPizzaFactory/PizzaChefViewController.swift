@@ -76,6 +76,9 @@ class PizzaChefViewController: UIViewController {
         pevc.popoverPresentationController?.sourceView = sender
         pevc.popoverPresentationController?.sourceRect = CGRect(x: 88, y: 22, width: 22, height: 22)
         pevc.pizza = cell.pizza
+        pevc.modify = { pizza in
+            
+        }
         show(pevc, sender: self)
     }
     

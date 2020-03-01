@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         for view in bottomStackView.arrangedSubviews {
             view.addBorder()
         }
+        let width = 130
+        let height = 35
         for i in 1...chefCount {
             let name = "Pizza Chef \(i-1)"
             let chef = PizzaChef(name: name, time: i)
@@ -40,8 +42,6 @@ class ViewController: UIViewController {
                 }
             }
             // summary
-            let width = 130
-            let height = 35
             let x = 8 + width * ((i-1) % 3)
             let y = 45 + height * ((i-1) / 3)
             let label = UILabel(frame: CGRect(x: x, y: y, width: width, height: height))
