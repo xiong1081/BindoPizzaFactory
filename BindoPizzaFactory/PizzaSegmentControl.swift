@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SegmentItem: UIView {
+class PizzaSegmentItem: UIView {
     let titleLabel = UILabel()
     let weightLabel = UILabel()
 
@@ -35,12 +35,13 @@ class SegmentItem: UIView {
     }
 }
 
-class SegmentControl: UIControl {
-    var items: [(name: String, weight: Int)] = []
+class PizzaSegmentControl: UIControl {
+    let pizzaSizes: [PizzaSize]
     let stackView = UIStackView()
+    let height: CGFloat = 20
 
-    private var trackingItem: SegmentItem?
-    private(set) var selectedItem: SegmentItem?
+    private var trackingItem: PizzaSegmentItem?
+    private(set) var selectedItem: PizzaSegmentItem?
     
     var selectedIndex: Int {
         get {
@@ -55,26 +56,28 @@ class SegmentControl: UIControl {
             guard stackView.arrangedSubviews.count > index else {
                 return
             }
-            let item = stackView.arrangedSubviews[index] as! SegmentItem
+            let item = stackView.arrangedSubviews[index] as! PizzaSegmentItem
             select(item)
         }
     }
-    
-    let height: CGFloat = 20
-    
-    init() {
+        
+    init(pizzaSizes: [PizzaSize]) {
+        self.pizzaSizes = pizzaSizes
         super.init(frame: .zero)
         addConstraint(attribute: .height, relatedBy: .equal, constant: height)
         layer.cornerRadius = height / 2
         clipsToBounds = true
+        initSubviews()
+    }
+    
+    private func initSubviews() {
+        for pizzaSize in pizzaSizes {
+            let item = PizzaSegmentItem(title: pizzaSize.rawValue, weight: pizzaSize.weight)
+            stackView.addArrangedSubview(item)
+        }
         stackView.isUserInteractionEnabled = false
         addSubview(stackView)
         stackView.addConstraints(attributes: [.top, .left, .bottom, .right], equalTo: self)
-    }
-    
-    func add(item: (String, Int)) {
-        let control = SegmentItem(title: item.0, weight: item.1)
-        stackView.addArrangedSubview(control)
     }
     
     required init?(coder: NSCoder) {
@@ -85,7 +88,7 @@ class SegmentControl: UIControl {
         for item in stackView.arrangedSubviews {
             let point = touch.location(in: item)
             if item.point(inside: point, with: event) {
-                trackingItem = (item as! SegmentItem)
+                trackingItem = (item as! PizzaSegmentItem)
                 break
             }
         }
@@ -106,7 +109,7 @@ class SegmentControl: UIControl {
         trackingItem = nil
     }
     
-    func select(_ item: SegmentItem) {
+    func select(_ item: PizzaSegmentItem) {
         if selectedItem != nil {
             selectedItem?.backgroundColor = UIColor.background
         }

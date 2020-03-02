@@ -10,7 +10,7 @@ import UIKit
 
 class PizzaEditViewController: UIViewController {
     
-    let segmentControl = SegmentControl()
+    let segmentControl = PizzaSegmentControl(pizzaSizes: PizzaSize.allCases)
     let sizeLabel = UILabel()
     let toppingsLabel = UILabel()
     
@@ -43,9 +43,6 @@ class PizzaEditViewController: UIViewController {
         view.addSubview(sizeLabel)
         sizeLabel.addConstraints(attributes: [.left, .top], equalTo: view, inset: 30)
         // segmentControl
-        for size in PizzaSize.allCases {
-            segmentControl.add(item: (size.rawValue, size.weight))
-        }
         if let index = PizzaSize.allCases.firstIndex(of: pizza.size) {
             segmentControl.selectedIndex = index
         }
@@ -95,7 +92,7 @@ class PizzaEditViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func segmentControlValueChanged(_ sc: SegmentControl) {
+    @objc func segmentControlValueChanged(_ sc: PizzaSegmentControl) {
         if pizza.completed {
             self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
         } else {
