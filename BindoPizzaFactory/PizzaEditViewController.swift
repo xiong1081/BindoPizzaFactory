@@ -10,34 +10,59 @@ import UIKit
 
 class PizzaEditViewController: UIViewController {
     
-    var segmentControl: SegmentControl?
+    let segmentControl = SegmentControl()
+    let sizeLabel = UILabel()
+    let toppingsLabel = UILabel()
     
-    var pizza: Pizza?
-    var modify: ((Pizza) -> ())?
+    let pizza: Pizza
     
-    @IBOutlet weak var sizeLabel: UILabel!
-    @IBOutlet weak var toppingsLabel: UILabel!
-    @IBOutlet weak var navItem: UINavigationItem!
+    init(pizza: Pizza) {
+        self.pizza = pizza
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .popover
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        navItem.title = pizza?.name
+        preferredContentSize = CGSize(width: 333, height: 222)
+        initSubviews()
+    }
+    
+    // MARK: - Private
+    
+    private func initSubviews() {
         // SIZE
-        segmentControl = SegmentControl()
+        sizeLabel.textColor = UIColor.gray
+        sizeLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        sizeLabel.text = "SIZE"
+        view.addSubview(sizeLabel)
+        sizeLabel.addConstraints(attributes: [.left, .top], equalTo: view, inset: 30)
+        // segmentControl
         for size in PizzaSize.allCases {
-            segmentControl!.add(item: (size.rawValue, size.weight))
+            segmentControl.add(item: (size.rawValue, size.weight))
         }
-        if let pizza = pizza, let index = PizzaSize.allCases.firstIndex(of: pizza.size) {
-            segmentControl!.selectedIndex = index
+        if let index = PizzaSize.allCases.firstIndex(of: pizza.size) {
+            segmentControl.selectedIndex = index
         }
-        segmentControl?.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
-        view.addSubview(segmentControl!)
-        segmentControl!.addConstraint(attribute: .left, relatedBy: .equal, to: sizeLabel)
-            .addConstraint(attribute: .top, relatedBy: .equal, to: sizeLabel, attribute: .bottom, constant: 18)
+        segmentControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
+        view.addSubview(segmentControl)
+        segmentControl.addConstraint(attribute: .left, relatedBy: .equal, to: sizeLabel)
+            .addConstraint(attribute: .top, relatedBy: .equal, to: sizeLabel, attribute: .bottom, constant: 15)
         // TOPPINGS
-        var x: CGFloat = 15
-        var y: CGFloat = 180
+        toppingsLabel.textColor = UIColor.gray
+        toppingsLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        toppingsLabel.text = "TOPPINGS"
+        view.addSubview(toppingsLabel)
+        toppingsLabel.addConstraint(attribute: .left, relatedBy: .equal, to: sizeLabel)
+            .addConstraint(attribute: .top, relatedBy: .equal, to: segmentControl, attribute: .bottom, constant: 15)
+        // ToppingControls
+        var x: CGFloat = 30
+        var y: CGFloat = 122
         for (i, item) in PizzaToppings.allCases.enumerated() {
             let button = createToppingControl()
             let attributes = [NSAttributedString.Key.font : button.titleLabel!.font!]
@@ -48,7 +73,7 @@ class PizzaEditViewController: UIViewController {
             button.setTitle(item.description, for: .normal)
             view.addSubview(button)
             if i % 3 == 2 {
-                x = 15
+                x = 30
                 y += height + 8
             } else {
                 x += width + 8
@@ -56,27 +81,7 @@ class PizzaEditViewController: UIViewController {
         }
     }
     
-    @objc func segmentControlValueChanged(_ sc: SegmentControl) {
-        pizza?.size = PizzaSize.allCases[sc.selectedIndex]
-    }
-    
-    @IBAction func tapDismiss(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func tapDone(_ sender: UIBarButtonItem) {
-        guard let pizza = pizza else { return }
-        if pizza.completed {
-            self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
-        } else {
-            self.dismiss(animated: true, completion: nil)
-            if let m = modify {
-                m(pizza)
-            }
-        }
-    }
-    
-    func createToppingControl() -> UIButton {
+    private func createToppingControl() -> UIButton {
         let control = UIButton()
         control.layer.cornerRadius = 11
         control.clipsToBounds = true
@@ -88,8 +93,22 @@ class PizzaEditViewController: UIViewController {
         return control
     }
     
+    // MARK: - Actions
+    
+    @objc func segmentControlValueChanged(_ sc: SegmentControl) {
+        if pizza.completed {
+            self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
+        } else {
+            pizza.size = PizzaSize.allCases[sc.selectedIndex]
+        }
+    }
+    
     @objc func tapTopping(button: UIButton) {
-        button.isSelected = !button.isSelected
+        if pizza.completed {
+            self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
+        } else {
+            button.isSelected = !button.isSelected
+        }
     }
 
 }

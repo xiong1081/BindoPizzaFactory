@@ -171,68 +171,6 @@
             </objects>
             <point key="canvasLocation" x="138.8671875" y="110.9375"/>
         </scene>
-        <!--Pizza Edit View Controller-->
-        <scene sceneID="2Nn-67-FCF">
-            <objects>
-                <viewController storyboardIdentifier="PizzaEditViewController" id="5uQ-95-j22" customClass="PizzaEditViewController" customModule="BindoPizzaFactory" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Nzp-wW-49L">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="es8-Y6-KdZ">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
-                                <items>
-                                    <navigationItem id="yhV-gz-rT8">
-                                        <barButtonItem key="leftBarButtonItem" title="Dismiss" id="KSC-py-OhP">
-                                            <connections>
-                                                <action selector="tapDismiss:" destination="5uQ-95-j22" id="OBA-RX-zb1"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="VoM-VP-nco">
-                                            <connections>
-                                                <action selector="tapDone:" destination="5uQ-95-j22" id="8yg-R5-yLi"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIZE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UoT-Wl-3vE">
-                                <rect key="frame" x="15" y="70" width="28" height="15"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOPPINGS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDl-Ly-hMf">
-                                <rect key="frame" x="15" y="145" width="64" height="15"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="es8-Y6-KdZ" firstAttribute="trailing" secondItem="nKU-cI-X48" secondAttribute="trailing" id="02o-34-CtT"/>
-                            <constraint firstItem="nKU-cI-X48" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DDl-Ly-hMf" secondAttribute="trailing" symbolic="YES" id="48p-JL-MNh"/>
-                            <constraint firstItem="DDl-Ly-hMf" firstAttribute="leading" secondItem="UoT-Wl-3vE" secondAttribute="leading" id="8Ty-o4-lEv"/>
-                            <constraint firstItem="DDl-Ly-hMf" firstAttribute="top" secondItem="UoT-Wl-3vE" secondAttribute="bottom" constant="60" id="9xK-Od-Zge"/>
-                            <constraint firstItem="UoT-Wl-3vE" firstAttribute="leading" secondItem="nKU-cI-X48" secondAttribute="leading" constant="15" id="IYr-We-nZx"/>
-                            <constraint firstItem="nKU-cI-X48" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UoT-Wl-3vE" secondAttribute="trailing" symbolic="YES" id="ppq-GD-JaH"/>
-                            <constraint firstItem="es8-Y6-KdZ" firstAttribute="leading" secondItem="nKU-cI-X48" secondAttribute="leading" id="put-Lh-qFC"/>
-                            <constraint firstItem="UoT-Wl-3vE" firstAttribute="top" secondItem="es8-Y6-KdZ" secondAttribute="bottom" constant="20" id="xN2-e1-dxp"/>
-                            <constraint firstItem="es8-Y6-KdZ" firstAttribute="top" secondItem="nKU-cI-X48" secondAttribute="top" id="yqb-Ue-7PC"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="nKU-cI-X48"/>
-                    </view>
-                    <connections>
-                        <outlet property="navItem" destination="yhV-gz-rT8" id="OFw-Ar-VrL"/>
-                        <outlet property="sizeLabel" destination="UoT-Wl-3vE" id="WZG-5h-h92"/>
-                        <outlet property="toppingsLabel" destination="DDl-Ly-hMf" id="9DC-0I-y03"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v6a-Cd-dv0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1020" y="111"/>
-        </scene>
         <!--Pizza Chef View Controller-->
         <scene sceneID="dem-Jj-O39">
             <objects>

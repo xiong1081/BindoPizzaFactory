@@ -43,10 +43,6 @@ class PizzaChefViewController: UIViewController {
         tableView.separatorStyle = .none
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     func refreshUI() {
         tableView.reloadData()
         refreshRemain()
@@ -70,15 +66,11 @@ class PizzaChefViewController: UIViewController {
     }
     
     @IBAction func tapEdit(_ sender: UIButton) {
-        let vc = storyboard?.instantiateViewController(identifier: "PizzaEditViewController")
-        guard let pevc = vc as? PizzaEditViewController else { return }
-        guard let cell = sender.superview?.superview as? PizzaTableViewCell else { return }
+        guard let cell = sender.superview?.superview as? PizzaTableViewCell,
+            let pizza = cell.pizza else { return }
+        let pevc = PizzaEditViewController(pizza: pizza)
         pevc.popoverPresentationController?.sourceView = sender
-        pevc.popoverPresentationController?.sourceRect = CGRect(x: 88, y: 22, width: 22, height: 22)
-        pevc.pizza = cell.pizza
-        pevc.modify = { pizza in
-            
-        }
+        pevc.popoverPresentationController?.sourceRect = sender.bounds
         show(pevc, sender: self)
     }
     
@@ -87,7 +79,7 @@ class PizzaChefViewController: UIViewController {
     
 }
 
-extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate {
+extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chef?.pizzas.count ?? 0
