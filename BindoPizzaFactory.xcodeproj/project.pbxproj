@@ -21,6 +21,11 @@
 		09480C59240A9CD100E546A3 /* PizzaEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */; };
 		09480C5B240BE25E00E546A3 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C5A240BE25E00E546A3 /* Hint.swift */; };
 		09480C5D240BE61C00E546A3 /* Hint.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09480C5C240BE61C00E546A3 /* Hint.xib */; };
+		09BEC4B22413D1290044E2B3 /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BEC4AD2413D1290044E2B3 /* PeerConnection.swift */; };
+		09BEC4B32413D1290044E2B3 /* PeerListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BEC4AE2413D1290044E2B3 /* PeerListener.swift */; };
+		09BEC4B42413D1290044E2B3 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BEC4AF2413D1290044E2B3 /* GameProtocol.swift */; };
+		09BEC4B52413D1290044E2B3 /* NWParameters+InitWithPasscode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BEC4B02413D1290044E2B3 /* NWParameters+InitWithPasscode.swift */; };
+		09BEC4B62413D1290044E2B3 /* PeerBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BEC4B12413D1290044E2B3 /* PeerBrowser.swift */; };
 		09E73FF6240E6F54007E0BD0 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09E73FF4240E6F54007E0BD0 /* DataModel.xcdatamodeld */; };
 		09E74018241298F0007E0BD0 /* Pizza+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */; };
 		09E74019241298F0007E0BD0 /* Pizza+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */; };
@@ -45,6 +50,11 @@
 		09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaEditViewController.swift; sourceTree = "<group>"; };
 		09480C5A240BE25E00E546A3 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 		09480C5C240BE61C00E546A3 /* Hint.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Hint.xib; sourceTree = "<group>"; };
+		09BEC4AD2413D1290044E2B3 /* PeerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerConnection.swift; sourceTree = "<group>"; };
+		09BEC4AE2413D1290044E2B3 /* PeerListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerListener.swift; sourceTree = "<group>"; };
+		09BEC4AF2413D1290044E2B3 /* GameProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
+		09BEC4B02413D1290044E2B3 /* NWParameters+InitWithPasscode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NWParameters+InitWithPasscode.swift"; sourceTree = "<group>"; };
+		09BEC4B12413D1290044E2B3 /* PeerBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerBrowser.swift; sourceTree = "<group>"; };
 		09E73FF5240E6F54007E0BD0 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pizza+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pizza+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -82,28 +92,65 @@
 		09169E802409393C003BC1D0 /* BindoPizzaFactory */ = {
 			isa = PBXGroup;
 			children = (
-				09169E812409393C003BC1D0 /* AppDelegate.swift */,
-				09169E832409393C003BC1D0 /* SceneDelegate.swift */,
-				09169E852409393C003BC1D0 /* ViewController.swift */,
-				09480C4C240954D500E546A3 /* PizzaChefViewController.swift */,
-				09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */,
-				09480C56240A894900E546A3 /* PizzaSegmentControl.swift */,
-				09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */,
-				09480C5A240BE25E00E546A3 /* Hint.swift */,
-				09480C5C240BE61C00E546A3 /* Hint.xib */,
-				09169E952409466B003BC1D0 /* Extension.swift */,
 				09169E872409393C003BC1D0 /* Main.storyboard */,
 				09169E8A24093945003BC1D0 /* Assets.xcassets */,
 				09169E8C24093945003BC1D0 /* LaunchScreen.storyboard */,
 				09169E8F24093945003BC1D0 /* Info.plist */,
-				09169E9724094A90003BC1D0 /* IMG_5134.jpeg */,
+				09169E812409393C003BC1D0 /* AppDelegate.swift */,
+				09169E832409393C003BC1D0 /* SceneDelegate.swift */,
+				09BEC4B92413D1900044E2B3 /* Other */,
+				09BEC4B82413D1700044E2B3 /* Views */,
+				09BEC4B72413D1410044E2B3 /* CoreData */,
+				09BEC4AC2413D1290044E2B3 /* Networking */,
+			);
+			path = BindoPizzaFactory;
+			sourceTree = "<group>";
+		};
+		09BEC4AC2413D1290044E2B3 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				09BEC4AD2413D1290044E2B3 /* PeerConnection.swift */,
+				09BEC4AE2413D1290044E2B3 /* PeerListener.swift */,
+				09BEC4AF2413D1290044E2B3 /* GameProtocol.swift */,
+				09BEC4B02413D1290044E2B3 /* NWParameters+InitWithPasscode.swift */,
+				09BEC4B12413D1290044E2B3 /* PeerBrowser.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		09BEC4B72413D1410044E2B3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
 				09E73FF4240E6F54007E0BD0 /* DataModel.xcdatamodeld */,
 				09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */,
 				09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */,
 				09E74016241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift */,
 				09E7401D241342C5007E0BD0 /* PizzaChef+CoreDataProperties.swift */,
 			);
-			path = BindoPizzaFactory;
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		09BEC4B82413D1700044E2B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09169E852409393C003BC1D0 /* ViewController.swift */,
+				09480C4C240954D500E546A3 /* PizzaChefViewController.swift */,
+				09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */,
+				09480C56240A894900E546A3 /* PizzaSegmentControl.swift */,
+				09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		09BEC4B92413D1900044E2B3 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				09169E9724094A90003BC1D0 /* IMG_5134.jpeg */,
+				09480C5A240BE25E00E546A3 /* Hint.swift */,
+				09480C5C240BE61C00E546A3 /* Hint.xib */,
+				09169E952409466B003BC1D0 /* Extension.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,17 +229,22 @@
 				09169E862409393C003BC1D0 /* ViewController.swift in Sources */,
 				09169E822409393C003BC1D0 /* AppDelegate.swift in Sources */,
 				09169E842409393C003BC1D0 /* SceneDelegate.swift in Sources */,
+				09BEC4B62413D1290044E2B3 /* PeerBrowser.swift in Sources */,
 				09480C59240A9CD100E546A3 /* PizzaEditViewController.swift in Sources */,
 				09E74019241298F0007E0BD0 /* Pizza+CoreDataProperties.swift in Sources */,
 				09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */,
 				09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */,
 				09169E962409466C003BC1D0 /* Extension.swift in Sources */,
 				09E74018241298F0007E0BD0 /* Pizza+CoreDataClass.swift in Sources */,
+				09BEC4B22413D1290044E2B3 /* PeerConnection.swift in Sources */,
 				09E73FF6240E6F54007E0BD0 /* DataModel.xcdatamodeld in Sources */,
 				09E7401A241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift in Sources */,
 				09E7401F241342C5007E0BD0 /* PizzaChef+CoreDataProperties.swift in Sources */,
 				09480C5B240BE25E00E546A3 /* Hint.swift in Sources */,
 				09480C57240A894900E546A3 /* PizzaSegmentControl.swift in Sources */,
+				09BEC4B42413D1290044E2B3 /* GameProtocol.swift in Sources */,
+				09BEC4B52413D1290044E2B3 /* NWParameters+InitWithPasscode.swift in Sources */,
+				09BEC4B32413D1290044E2B3 /* PeerListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

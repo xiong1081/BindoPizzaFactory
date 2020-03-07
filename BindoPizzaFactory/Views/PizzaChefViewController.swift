@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PizzaChefDelegate {
+    func delegate(chef: PizzaChef, pizza: Pizza, button: UIButton)
+}
+
 class PizzaChefViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,6 +21,7 @@ class PizzaChefViewController: UIViewController {
     @IBOutlet weak var workSwitch: UISwitch!
     
     var chef: PizzaChef?
+    var delegate: PizzaChefDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +38,6 @@ class PizzaChefViewController: UIViewController {
             self.resetRemainLabel()
         }
         chef?.startWorking()
-//        DispatchQueue.main.async {
-//            NotificationCenter.default.post(name: NSNotification.Name.PizzaChefAddPizzas, object: self, userInfo: ["pizzas": pizzas])
-//        }
     }
     
     func resetRemainLabel() {
@@ -56,6 +58,9 @@ class PizzaChefViewController: UIViewController {
     }
     
     @IBAction func tapDelegate(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? PizzaTableViewCell,
+            let pizza = cell.pizza else { return }
+        delegate?.delegate(chef: chef!, pizza: pizza, button: sender)
     }
     
 }
