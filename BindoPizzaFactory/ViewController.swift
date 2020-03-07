@@ -102,13 +102,15 @@ class ViewController: UIViewController {
             pizzass[i%viewControllers.count].append(pizza)
         }
         for (i, pcvc) in viewControllers.enumerated() {
-            pcvc.tableView.reloadData()
-            pcvc.resetRemainLabel()
             if let chef = pcvc.chef {
-                chef.add(pizzas: pizzass[i])
+                chef.addToPizzas(NSOrderedSet(array: pizzass[i]))
+                chef.workQueueAdd(pizzass[i])
                 self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
             }
+            pcvc.tableView.reloadData()
+            pcvc.resetRemainLabel()
         }
+        PizzaChef.save()
     }
     
 }

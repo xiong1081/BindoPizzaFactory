@@ -24,36 +24,27 @@ public class PizzaChef: NSManagedObject {
         self.time = time
     }
     
-    func initWorks() {
-        remainCount = pizzas.count
+    func startWorking() {
+        if let pizzas = pizzas.array as? [Pizza] {
+            workQueueAdd(pizzas)
+        }
+    }
+    
+    func workQueueAdd(_ pizzas: [Pizza]) {
+        remainCount += pizzas.count
         for (i, pizza) in pizzas.enumerated() {
-            guard let pizza = pizza as? Pizza,
-                pizza.completed == false else {
+            guard pizza.completed == false else {
                 remainCount -= 1
                 continue
             }
             workQueue.addOperation { [weak self] in
                 sleep(UInt32(self!.time))
-                pizza.completed = true
                 DispatchQueue.main.async {
+                    pizza.completed = true
                     self?.remainCount -= 1
                     NotificationCenter.default.post(name: NSNotification.Name.PizzaChefFinishPizza, object: self, userInfo: ["index": i])
                 }
             }
-        }
-    }
-    
-    func add(pizzas: [Pizza]) {
-        addToPizzas(NSOrderedSet(array: pizzas))
-        remainCount += pizzas.count
-        for pizza in pizzas {
-            workQueue.addOperation { [weak self] in
-                sleep(UInt32(self!.time))
-                pizza.completed = true
-            }
-        }
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name.PizzaChefAddPizzas, object: self, userInfo: ["pizzas": pizzas])
         }
     }
     
@@ -75,15 +66,20 @@ public class PizzaChef: NSManagedObject {
                 }
                 let name = "Pizza Chef \(i-1)"
                 chef.update(name: name, time: Int64(i))
-                chef.add(pizzas: pizzass[i-1])
+                chef.addToPizzas(NSOrderedSet(array: pizzass[i-1]))
             }
-            if context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    print("Error: \(error)\nCould not save Core Data context.")
-                    return
-                }
+            PizzaChef.save()
+        }
+    }
+    
+    class func save() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Error: \(error)\nCould not save Core Data context.")
+                return
             }
         }
     }

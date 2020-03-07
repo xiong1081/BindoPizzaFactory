@@ -9,16 +9,6 @@
 import UIKit
 import CoreData
 
-var persistentContainer: NSPersistentContainer = {
-    let container = NSPersistentContainer(name: "DataModel")
-    container.loadPersistentStores { description, error in
-        if let error = error {
-            fatalError("Unable to load persistent stores: \(error)")
-        }
-    }
-    return container
-}()
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -41,6 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
 
+var persistentContainer: NSPersistentContainer = {
+    let container = NSPersistentContainer(name: "DataModel")
+    container.loadPersistentStores { description, error in
+        if let error = error {
+            fatalError("Unable to load persistent stores: \(error)")
+        }
+    }
+    return container
+}()

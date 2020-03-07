@@ -16,11 +16,7 @@ class PizzaChefViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var workSwitch: UISwitch!
     
-    var chef: PizzaChef? {
-        didSet {
-            chef?.initWorks()
-        }
-    }
+    var chef: PizzaChef?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +32,10 @@ class PizzaChefViewController: UIViewController {
             self.tableView.reloadData()
             self.resetRemainLabel()
         }
+        chef?.startWorking()
+//        DispatchQueue.main.async {
+//            NotificationCenter.default.post(name: NSNotification.Name.PizzaChefAddPizzas, object: self, userInfo: ["pizzas": pizzas])
+//        }
     }
     
     func resetRemainLabel() {

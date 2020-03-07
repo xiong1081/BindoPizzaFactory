@@ -33,6 +33,11 @@ class PizzaEditViewController: UIViewController {
         initSubviews()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PizzaChef.save()
+    }
+    
     // MARK: - Private
     
     private func initSubviews() {
@@ -63,6 +68,8 @@ class PizzaEditViewController: UIViewController {
         var y: CGFloat = 122
         for (i, item) in PizzaToppings.allCases.enumerated() {
             let button = createToppingControl()
+            button.tag = item.rawValue
+            button.isSelected = (pizza.toppings & Int64(item.rawValue)) != 0
             let attributes = [NSAttributedString.Key.font : button.titleLabel!.font!]
             let rect = item.description.boundingRect(with: CGSize(width: Int.max, height: 20), options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
             let width = rect.size.width + 16
@@ -106,6 +113,11 @@ class PizzaEditViewController: UIViewController {
             self.view.hint(title: "Sorry. Cannot modify a completed pizza.")
         } else {
             button.isSelected = !button.isSelected
+            if button.isSelected {
+                pizza.toppings += Int64(button.tag)
+            } else {
+                pizza.toppings -= Int64(button.tag)
+            }
         }
     }
 
