@@ -72,7 +72,7 @@ class PizzaSegmentControl: UIControl {
     
     private func initSubviews() {
         for pizzaSize in pizzaSizes {
-            let item = PizzaSegmentItem(title: pizzaSize.rawValue, weight: pizzaSize.weight)
+            let item = PizzaSegmentItem(title: pizzaSize.description, weight: Int(pizzaSize.rawValue))
             stackView.addArrangedSubview(item)
         }
         stackView.isUserInteractionEnabled = false

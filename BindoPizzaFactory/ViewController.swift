@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -14,22 +15,44 @@ class ViewController: UIViewController {
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var bottomStackView: UIStackView!
     
-    let chefCount = 5
-    var pizzaId: Int = 0
     var viewControllers: [PizzaChefViewController] = []
     var summaryLabels: [UILabel] = []
-
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<PizzaChef> = {
+        let fetchRequest = NSFetchRequest<PizzaChef>(entityName: "PizzaChef")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        // Create a fetched results controller and set its fetch request, context, and delegate.
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        return controller
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let imported = UserDefaults.standard.bool(forKey: "ImportPizzaChefsIntoDatabase")
+        if imported {
+            
+        } else {
+            UserDefaults.standard.set(true, forKey: "ImportPizzaChefsIntoDatabase")
+            PizzaChef.importPizzaChefsIntoDatabase()
+        }
+        do {
+            try fetchedResultsController.performFetch()
+            addChildControllersAndSummaryLabels()
+        } catch {
+            fatalError("Unresolved error \(error)")
+        }
         summaryView.addBorder()
         for view in bottomStackView.arrangedSubviews {
             view.addBorder()
         }
+    }
+    
+    func addChildControllersAndSummaryLabels() {
+        guard let objects = fetchedResultsController.fetchedObjects else { return }
         let width = 130
         let height = 35
-        for i in 1...chefCount {
-            let name = "Pizza Chef \(i-1)"
-            let chef = PizzaChef(name: name, time: i)
+        for (i, chef) in objects.enumerated() {
             let viewController = storyboard?.instantiateViewController(identifier: "PizzaChefViewController")
             if let pizzaChefVC = viewController as? PizzaChefViewController {
                 pizzaChefVC.chef = chef
@@ -38,22 +61,17 @@ class ViewController: UIViewController {
                 pizzaChefVC.didMove(toParent: self)
                 viewControllers.append(pizzaChefVC)
                 pizzaChefVC.pizzaNumChanged = { [weak self] count in
-                    self?.summaryLabels[i-1].text = "\(name): \(count)"
+                    self?.summaryLabels[i].text = "\(String(describing: chef.name)): \(chef.pizzas.count)"
                 }
             }
             // summary
-            let x = 8 + width * ((i-1) % 3)
-            let y = 45 + height * ((i-1) / 3)
+            let x = 8 + width * (i % 3)
+            let y = 45 + height * (i / 3)
             let label = UILabel(frame: CGRect(x: x, y: y, width: width, height: height))
             label.font = UIFont.systemFont(ofSize: 12)
+            label.text = "\(chef.name): \(chef.pizzas.count)"
             summaryView.addSubview(label)
             summaryLabels.append(label)
-        }
-        for i in 0...999 {
-            pizzaId += 1
-            let name = String(format: "PIZZA_%04d", pizzaId)
-            let pizza = Pizza(name: name)
-            viewControllers[i%5].chef?.pizzas.append(pizza)
         }
     }
     
@@ -80,10 +98,11 @@ class ViewController: UIViewController {
     
     func addPizza(count: Int) {
         for i in 0..<count {
-            pizzaId += 1
-            let name = String(format: "PIZZA_%04d", pizzaId)
-            let pizza = Pizza(name: name)
-            viewControllers[i%chefCount].chef?.pizzas.append(pizza)
+            guard let pizza = NSEntityDescription.insertNewObject(forEntityName: "Pizza", into: persistentContainer.viewContext) as? Pizza else { continue }
+            let name = String(format: "PIZZA_%04d", arc4random()%10000)
+            pizza.update(name: name)
+            let vc = viewControllers[i%viewControllers.count]
+            vc.chef?.addToPizzas(pizza)
         }
         for (i, pcvc) in viewControllers.enumerated() {
             self.refreshSummaryLabel(viewController: pcvc, index: i)
@@ -94,3 +113,10 @@ class ViewController: UIViewController {
     
 }
 
+extension ViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+    }
+    
+}

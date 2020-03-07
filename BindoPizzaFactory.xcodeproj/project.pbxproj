@@ -17,12 +17,15 @@
 		09169E9824094A90003BC1D0 /* IMG_5134.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 09169E9724094A90003BC1D0 /* IMG_5134.jpeg */; };
 		09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C4C240954D500E546A3 /* PizzaChefViewController.swift */; };
 		09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */; };
-		09480C53240958CD00E546A3 /* PizzaChef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C52240958CD00E546A3 /* PizzaChef.swift */; };
-		09480C55240A7B3300E546A3 /* Pizza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C54240A7B3300E546A3 /* Pizza.swift */; };
 		09480C57240A894900E546A3 /* PizzaSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C56240A894900E546A3 /* PizzaSegmentControl.swift */; };
 		09480C59240A9CD100E546A3 /* PizzaEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */; };
 		09480C5B240BE25E00E546A3 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09480C5A240BE25E00E546A3 /* Hint.swift */; };
 		09480C5D240BE61C00E546A3 /* Hint.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09480C5C240BE61C00E546A3 /* Hint.xib */; };
+		09E73FF6240E6F54007E0BD0 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09E73FF4240E6F54007E0BD0 /* DataModel.xcdatamodeld */; };
+		09E74018241298F0007E0BD0 /* Pizza+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */; };
+		09E74019241298F0007E0BD0 /* Pizza+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */; };
+		09E7401A241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74016241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift */; };
+		09E7401B241298F0007E0BD0 /* PizzaChef+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E74017241298F0007E0BD0 /* PizzaChef+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,12 +41,15 @@
 		09169E9724094A90003BC1D0 /* IMG_5134.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_5134.jpeg; sourceTree = "<group>"; };
 		09480C4C240954D500E546A3 /* PizzaChefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaChefViewController.swift; sourceTree = "<group>"; };
 		09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaTableViewCell.swift; sourceTree = "<group>"; };
-		09480C52240958CD00E546A3 /* PizzaChef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaChef.swift; sourceTree = "<group>"; };
-		09480C54240A7B3300E546A3 /* Pizza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
 		09480C56240A894900E546A3 /* PizzaSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaSegmentControl.swift; sourceTree = "<group>"; };
 		09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaEditViewController.swift; sourceTree = "<group>"; };
 		09480C5A240BE25E00E546A3 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 		09480C5C240BE61C00E546A3 /* Hint.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Hint.xib; sourceTree = "<group>"; };
+		09E73FF5240E6F54007E0BD0 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pizza+CoreDataClass.swift"; sourceTree = "<group>"; };
+		09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pizza+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		09E74016241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PizzaChef+CoreDataClass.swift"; sourceTree = "<group>"; };
+		09E74017241298F0007E0BD0 /* PizzaChef+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PizzaChef+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +89,6 @@
 				09480C58240A9CD100E546A3 /* PizzaEditViewController.swift */,
 				09480C56240A894900E546A3 /* PizzaSegmentControl.swift */,
 				09480C4E2409560B00E546A3 /* PizzaTableViewCell.swift */,
-				09480C52240958CD00E546A3 /* PizzaChef.swift */,
-				09480C54240A7B3300E546A3 /* Pizza.swift */,
 				09480C5A240BE25E00E546A3 /* Hint.swift */,
 				09480C5C240BE61C00E546A3 /* Hint.xib */,
 				09169E952409466B003BC1D0 /* Extension.swift */,
@@ -93,6 +97,11 @@
 				09169E8C24093945003BC1D0 /* LaunchScreen.storyboard */,
 				09169E8F24093945003BC1D0 /* Info.plist */,
 				09169E9724094A90003BC1D0 /* IMG_5134.jpeg */,
+				09E73FF4240E6F54007E0BD0 /* DataModel.xcdatamodeld */,
+				09E74014241298F0007E0BD0 /* Pizza+CoreDataClass.swift */,
+				09E74015241298F0007E0BD0 /* Pizza+CoreDataProperties.swift */,
+				09E74016241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift */,
+				09E74017241298F0007E0BD0 /* PizzaChef+CoreDataProperties.swift */,
 			);
 			path = BindoPizzaFactory;
 			sourceTree = "<group>";
@@ -170,15 +179,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09480C53240958CD00E546A3 /* PizzaChef.swift in Sources */,
 				09169E862409393C003BC1D0 /* ViewController.swift in Sources */,
 				09169E822409393C003BC1D0 /* AppDelegate.swift in Sources */,
 				09169E842409393C003BC1D0 /* SceneDelegate.swift in Sources */,
-				09480C55240A7B3300E546A3 /* Pizza.swift in Sources */,
 				09480C59240A9CD100E546A3 /* PizzaEditViewController.swift in Sources */,
+				09E74019241298F0007E0BD0 /* Pizza+CoreDataProperties.swift in Sources */,
 				09480C4D240954D500E546A3 /* PizzaChefViewController.swift in Sources */,
 				09480C4F2409560B00E546A3 /* PizzaTableViewCell.swift in Sources */,
 				09169E962409466C003BC1D0 /* Extension.swift in Sources */,
+				09E74018241298F0007E0BD0 /* Pizza+CoreDataClass.swift in Sources */,
+				09E73FF6240E6F54007E0BD0 /* DataModel.xcdatamodeld in Sources */,
+				09E7401A241298F0007E0BD0 /* PizzaChef+CoreDataClass.swift in Sources */,
+				09E7401B241298F0007E0BD0 /* PizzaChef+CoreDataProperties.swift in Sources */,
 				09480C5B240BE25E00E546A3 /* Hint.swift in Sources */,
 				09480C57240A894900E546A3 /* PizzaSegmentControl.swift in Sources */,
 			);
@@ -378,6 +390,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		09E73FF4240E6F54007E0BD0 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				09E73FF5240E6F54007E0BD0 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 09E73FF5240E6F54007E0BD0 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 09169E762409393B003BC1D0 /* Project object */;
 }

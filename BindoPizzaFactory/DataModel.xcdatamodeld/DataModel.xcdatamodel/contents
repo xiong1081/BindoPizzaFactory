@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+    <entity name="Pizza" representedClassName="Pizza" syncable="YES">
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="Pizza"/>
+        <attribute name="size" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="toppings" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="chef" maxCount="1" deletionRule="No Action" destinationEntity="PizzaChef" inverseName="pizzas" inverseEntity="PizzaChef"/>
+    </entity>
+    <entity name="PizzaChef" representedClassName="PizzaChef" syncable="YES">
+        <attribute name="name" attributeType="String" defaultValueString="PizzaChef"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="pizzas" toMany="YES" deletionRule="Nullify" destinationEntity="Pizza" inverseName="chef" inverseEntity="Pizza"/>
+    </entity>
+    <elements>
+        <element name="Pizza" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="PizzaChef" positionX="-241.9140625" positionY="-11.71484375" width="128" height="88"/>
+    </elements>
+</model>

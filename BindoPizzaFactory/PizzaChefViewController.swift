@@ -16,7 +16,11 @@ class PizzaChefViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var workSwitch: UISwitch!
     
-    var chef: PizzaChef?
+    var chef: PizzaChef? {
+        didSet {
+            
+        }
+    }
     var timer: Timer?
     var pizzaNumChanged: ((Int)->())?
     
@@ -27,16 +31,16 @@ class PizzaChefViewController: UIViewController {
             nameLabel.text = chef.name
             speedLabel.text = "Speed: \(chef.time) second per pizza"
             timer = Timer(fire: Date(), interval: TimeInterval(chef.time), repeats: true) { (timer) in
-                if chef.pizzas.count == 0 {
-                    timer.fireDate = Date.distantFuture
-                } else {
-                    let pizza = chef.pizzas.removeFirst()
-                    pizza.completed = true
-                    self.refreshUI()
-                    if let changed = self.pizzaNumChanged {
-                        changed(chef.pizzas.count)
-                    }
-                }
+//                if chef.pizzas.count == 0 {
+//                    timer.fireDate = Date.distantFuture
+//                } else {
+//                    let pizza = chef.pizzas.removeFirst()
+//                    pizza.completed = true
+//                    self.refreshUI()
+//                    if let changed = self.pizzaNumChanged {
+//                        changed(chef.pizzas.count)
+//                    }
+//                }
             }
             RunLoop.current.add(timer!, forMode: .common)
         }
@@ -49,7 +53,7 @@ class PizzaChefViewController: UIViewController {
     }
     
     func refreshRemain() {
-        remainLabel.text = "Remaining Pizza: \(chef?.pizzas.count ?? 0)"
+//        remainLabel.text = "Remaining Pizza: \(chef?.pizzas.count ?? 0)"
     }
     
     @IBAction func tapSwitch(_ sender: UISwitch) {
@@ -87,7 +91,7 @@ extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PizzaTableViewCell") as! PizzaTableViewCell
-        cell.pizza = chef?.pizzas[indexPath.row]
+        cell.pizza = chef?.pizzas.allObjects[indexPath.row] as? Pizza
         return cell
     }
     

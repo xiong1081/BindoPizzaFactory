@@ -1,26 +1,43 @@
 //
-//  Pizza.swift
+//  Pizza+CoreDataClass.swift
 //  BindoPizzaFactory
 //
-//  Created by 李招雄 on 2020/2/29.
+//  Created by 李招雄 on 2020/3/6.
 //  Copyright © 2020 李招雄. All rights reserved.
+//
 //
 
 import Foundation
+import CoreData
 
-enum PizzaSize: String, CaseIterable {
-    case small = "SMALL"
-    case medium = "MEDIUM"
-    case large = "LARGE"
+@objc(Pizza)
+public class Pizza: NSManagedObject {
+    func update(name: String,
+         size: Int64 = PizzaSize.medium.rawValue,
+         toppings: Int64 = 0,
+         completed: Bool = false) {
+        self.name = name
+        self.size = size
+        self.toppings = toppings
+        self.completed = completed
+    }
+}
+
+
+enum PizzaSize: Int64, CaseIterable {
+    case small = 320
+    case medium = 530
+    case large = 860
     
-    var weight: Int {
+    var description: String {
         switch self {
-        case .small: return 320
-        case .medium: return 530
-        case .large: return 860
+        case .small: return "SMALL"
+        case .medium: return "MEDIUM"
+        case .large: return "LARGE"
         }
     }
 }
+
 
 struct PizzaToppings: OptionSet, CaseIterable {
     typealias AllCases = [PizzaToppings]
@@ -47,16 +64,5 @@ struct PizzaToppings: OptionSet, CaseIterable {
         case .marinara: return "MARINARA"
         default: return ""
         }
-    }
-}
-
-class Pizza {
-    let name: String
-    var size: PizzaSize = .medium
-    var toppings: PizzaToppings? = nil
-    var completed = false
-    
-    init(name: String) {
-        self.name = name
     }
 }
