@@ -46,6 +46,12 @@ class ViewController: UIViewController {
         for view in bottomStackView.arrangedSubviews {
             view.addBorder()
         }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.PizzaChefFinishPizza, object: nil, queue: nil) { (noti) in
+            guard let chef = noti.object as? PizzaChef,
+                let objects = self.fetchedResultsController.fetchedObjects,
+                let i = objects.firstIndex(of: chef) else { return }
+            self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
+        }
     }
     
     func addChildControllersAndSummaryLabels() {
@@ -60,9 +66,6 @@ class ViewController: UIViewController {
                 stackView.addArrangedSubview(pizzaChefVC.view)
                 pizzaChefVC.didMove(toParent: self)
                 viewControllers.append(pizzaChefVC)
-                pizzaChefVC.pizzaNumChanged = { [weak self] count in
-                    self?.summaryLabels[i].text = "\(String(describing: chef.name)): \(chef.pizzas.count)"
-                }
             }
             // summary
             let x = 8 + width * (i % 3)
@@ -74,17 +77,11 @@ class ViewController: UIViewController {
             summaryLabels.append(label)
         }
     }
-    
-    func refreshSummaryLabel(viewController: PizzaChefViewController, index: Int) {
-        let name = viewController.nameLabel.text ?? ""
-        let count = viewController.chef?.pizzas.count ?? 0
-        self.summaryLabels[index].text = "\(name): \(count)"
-    }
 
     @IBAction func tapSwitch(_ sender: UISwitch) {
         for pcvc in viewControllers {
             pcvc.workSwitch.isOn = sender.isOn
-            pcvc.resetFireDate()
+            pcvc.chef?.workQueue.isSuspended = !pcvc.workSwitch.isOn
         }
     }
     
@@ -97,17 +94,20 @@ class ViewController: UIViewController {
     }
     
     func addPizza(count: Int) {
+        var pizzass:[[Pizza]] = Array(repeating: [], count: viewControllers.count)
         for i in 0..<count {
             guard let pizza = NSEntityDescription.insertNewObject(forEntityName: "Pizza", into: persistentContainer.viewContext) as? Pizza else { continue }
             let name = String(format: "PIZZA_%04d", arc4random()%10000)
             pizza.update(name: name)
-            let vc = viewControllers[i%viewControllers.count]
-            vc.chef?.addToPizzas(pizza)
+            pizzass[i%viewControllers.count].append(pizza)
         }
         for (i, pcvc) in viewControllers.enumerated() {
-            self.refreshSummaryLabel(viewController: pcvc, index: i)
-            pcvc.refreshUI()
-            pcvc.timer?.fireDate = Date()
+            pcvc.tableView.reloadData()
+            pcvc.resetRemainLabel()
+            if let chef = pcvc.chef {
+                chef.add(pizzas: pizzass[i])
+                self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
+            }
         }
     }
     
@@ -116,7 +116,9 @@ class ViewController: UIViewController {
 extension ViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
+        if viewControllers.count == 0 {
+            addChildControllersAndSummaryLabels()
+        }
     }
     
 }

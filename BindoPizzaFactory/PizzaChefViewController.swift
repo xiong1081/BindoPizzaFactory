@@ -18,55 +18,32 @@ class PizzaChefViewController: UIViewController {
     
     var chef: PizzaChef? {
         didSet {
-            
+            chef?.initWorks()
         }
     }
-    var timer: Timer?
-    var pizzaNumChanged: ((Int)->())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBorder()
+        tableView.separatorStyle = .none
         if let chef = chef {
             nameLabel.text = chef.name
             speedLabel.text = "Speed: \(chef.time) second per pizza"
-            timer = Timer(fire: Date(), interval: TimeInterval(chef.time), repeats: true) { (timer) in
-//                if chef.pizzas.count == 0 {
-//                    timer.fireDate = Date.distantFuture
-//                } else {
-//                    let pizza = chef.pizzas.removeFirst()
-//                    pizza.completed = true
-//                    self.refreshUI()
-//                    if let changed = self.pizzaNumChanged {
-//                        changed(chef.pizzas.count)
-//                    }
-//                }
-            }
-            RunLoop.current.add(timer!, forMode: .common)
         }
-        tableView.separatorStyle = .none
-    }
-    
-    func refreshUI() {
         tableView.reloadData()
-        refreshRemain()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.PizzaChefFinishPizza, object: nil, queue: nil) { (noti) in
+            guard let chef = noti.object as? PizzaChef, chef == self.chef else { return }
+            self.tableView.reloadData()
+            self.resetRemainLabel()
+        }
     }
     
-    func refreshRemain() {
-//        remainLabel.text = "Remaining Pizza: \(chef?.pizzas.count ?? 0)"
+    func resetRemainLabel() {
+        remainLabel.text = "Remaining Pizza: \(chef?.remainCount ?? 0)"
     }
     
     @IBAction func tapSwitch(_ sender: UISwitch) {
-        resetFireDate()
-    }
-    
-    func resetFireDate() {
-        if workSwitch.isOn {
-            let date = Date().addingTimeInterval(TimeInterval(chef?.time ?? 0))
-            timer?.fireDate = date
-        } else {
-            timer?.fireDate = Date.distantFuture
-        }
+        chef?.workQueue.isSuspended = !workSwitch.isOn
     }
     
     @IBAction func tapEdit(_ sender: UIButton) {
@@ -91,7 +68,7 @@ extension PizzaChefViewController: UITableViewDataSource, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PizzaTableViewCell") as! PizzaTableViewCell
-        cell.pizza = chef?.pizzas.allObjects[indexPath.row] as? Pizza
+        cell.pizza = chef?.pizzas[indexPath.row] as? Pizza
         return cell
     }
     

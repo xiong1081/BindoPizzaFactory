@@ -75,3 +75,8 @@ extension UIImage {
         return image!
     }
 }
+
+extension NSNotification.Name {
+    static let PizzaChefFinishPizza = NSNotification.Name(rawValue: "PizzaChefFinishPizza")
+    static let PizzaChefAddPizzas = NSNotification.Name(rawValue: "PizzaChefAddPizzas")
+}

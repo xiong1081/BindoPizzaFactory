@@ -11,10 +11,23 @@ import UIKit
 class PizzaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var delegateButton: UIButton!
     
     var pizza: Pizza? {
         didSet {
             nameLabel.text = pizza?.name
+            if let completed = pizza?.completed {
+                if completed {
+                    accessoryType = .checkmark
+                    editButton.isHidden = true
+                    delegateButton.isHidden = true
+                } else {
+                    accessoryType = .none
+                    editButton.isHidden = false
+                    delegateButton.isHidden = false
+                }
+            }
         }
     }
     

@@ -5,12 +5,12 @@
         <attribute name="name" attributeType="String" defaultValueString="Pizza"/>
         <attribute name="size" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="toppings" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="chef" maxCount="1" deletionRule="No Action" destinationEntity="PizzaChef" inverseName="pizzas" inverseEntity="PizzaChef"/>
+        <relationship name="chef" maxCount="1" deletionRule="Nullify" destinationEntity="PizzaChef" inverseName="pizzas" inverseEntity="PizzaChef"/>
     </entity>
     <entity name="PizzaChef" representedClassName="PizzaChef" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString="PizzaChef"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="pizzas" toMany="YES" deletionRule="Nullify" destinationEntity="Pizza" inverseName="chef" inverseEntity="Pizza"/>
+        <relationship name="pizzas" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Pizza" inverseName="chef" inverseEntity="Pizza"/>
     </entity>
     <elements>
         <element name="Pizza" positionX="-63" positionY="-18" width="128" height="118"/>

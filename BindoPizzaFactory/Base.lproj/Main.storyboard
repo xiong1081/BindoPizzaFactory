@@ -270,7 +270,6 @@
                                             <constraints>
                                                 <constraint firstItem="EcZ-LQ-ZcZ" firstAttribute="centerY" secondItem="9vE-g9-7Jx" secondAttribute="centerY" id="8Ji-C2-7Ty"/>
                                                 <constraint firstItem="648-XJ-ux8" firstAttribute="centerY" secondItem="9vE-g9-7Jx" secondAttribute="centerY" id="JBa-n5-NbY"/>
-                                                <constraint firstItem="xHJ-Wp-vix" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="648-XJ-ux8" secondAttribute="trailing" id="PEQ-Ty-w4b"/>
                                                 <constraint firstItem="EcZ-LQ-ZcZ" firstAttribute="leading" secondItem="xHJ-Wp-vix" secondAttribute="trailing" constant="8" id="Tk3-e8-9eL"/>
                                                 <constraint firstAttribute="trailing" secondItem="EcZ-LQ-ZcZ" secondAttribute="trailing" constant="18" id="XW9-MF-3Qh"/>
                                                 <constraint firstItem="xHJ-Wp-vix" firstAttribute="centerY" secondItem="9vE-g9-7Jx" secondAttribute="centerY" id="g0M-d2-JPi"/>
@@ -278,6 +277,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="delegateButton" destination="EcZ-LQ-ZcZ" id="5Cr-Tl-E7N"/>
+                                            <outlet property="editButton" destination="xHJ-Wp-vix" id="cBM-71-ayd"/>
                                             <outlet property="nameLabel" destination="648-XJ-ux8" id="cWy-QW-qTs"/>
                                         </connections>
                                     </tableViewCell>
