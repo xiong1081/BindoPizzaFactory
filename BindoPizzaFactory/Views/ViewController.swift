@@ -137,7 +137,27 @@ extension ViewController: NSFetchedResultsControllerDelegate, PizzaChefDelegate 
     func delegate(chef: PizzaChef, pizza: Pizza, button: UIButton) {
         guard results.count > 0 else { return }
         delegatePizza = pizza
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if sharedConnection == nil {
+            alertChooseFactory(button: button)
+        } else {
+            sendPizza()
+        }
+    }
+    
+    func sendPizza() {
+        guard let pizza = delegatePizza else { return }
+        guard pizza.completed == false else {
+            self.view.hint(title: "\(pizza.name) has been completed.")
+            return
+        }
+        let message = NWProtocolFramer.Message(gameMessageType: .sendPizza)
+        let context = NWConnection.ContentContext(identifier: "name",
+                                                  metadata: [message])
+        sharedConnection?.connection?.send(content: pizza.name.data(using: .utf8), contentContext: context, isComplete: true, completion: .idempotent)
+    }
+    
+    func alertChooseFactory(button: UIButton) {
+        let alert = UIAlertController(title: nil, message: "选择代理工厂", preferredStyle: .actionSheet)
         alert.popoverPresentationController?.sourceView = button
         alert.popoverPresentationController?.sourceRect = button.bounds
         for item in results {
@@ -171,11 +191,7 @@ extension ViewController: NSFetchedResultsControllerDelegate, PizzaChefDelegate 
 extension ViewController: PeerConnectionDelegate, PeerBrowserDelegate {
     // When a connection becomes ready, move into game mode.
     func connectionReady() {
-        guard let name = delegatePizza?.name else { return }
-        let message = NWProtocolFramer.Message(gameMessageType: .sendPizza)
-        let context = NWConnection.ContentContext(identifier: "name",
-                                                  metadata: [message])
-        sharedConnection?.connection?.send(content: name.data(using: .utf8), contentContext: context, isComplete: true, completion: .idempotent)
+        sendPizza()
 //        sharedConnection?.cancel()
 //        sharedConnection = nil
     }
@@ -191,6 +207,8 @@ extension ViewController: PeerConnectionDelegate, PeerBrowserDelegate {
         switch message.gameMessageType {
         case .receivedPizza:
             self.view.hint(title: "Sended \(name)")
+            guard let pizza = delegatePizza else { break }
+            pizza.chef.removeFromPizzas(pizza)
         case .sendPizza:
             guard let chefs = PizzaChef.fetchedResultsController.fetchedObjects else { return }
             let index = Int.random(in: 0..<chefs.count)
