@@ -26,29 +26,14 @@ class ViewController: UIViewController {
     var name: String = "Default"
     var passcode = String("\(Int.random(in: 0...9))\(Int.random(in: 0...9))\(Int.random(in: 0...9))\(Int.random(in: 0...9))")
     var delegatePizza: Pizza?
-        
-    lazy var fetchedResultsController: NSFetchedResultsController<PizzaChef> = {
-        let fetchRequest = NSFetchRequest<PizzaChef>(entityName: "PizzaChef")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        // Create a fetched results controller and set its fetch request, context, and delegate.
-        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        controller.delegate = self
-        return controller
-    }()
     
     // MARK: Life
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imported = UserDefaults.standard.bool(forKey: "ImportPizzaChefsIntoDatabase")
-        if imported {
-            
-        } else {
-            UserDefaults.standard.set(true, forKey: "ImportPizzaChefsIntoDatabase")
-            PizzaChef.importPizzaChefsIntoDatabase()
-        }
+        PizzaChef.fetchedResultsController.delegate = self
         do {
-            try fetchedResultsController.performFetch()
+            try PizzaChef.fetchedResultsController.performFetch()
             addChildControllersAndSummaryLabels()
         } catch {
             fatalError("Unresolved error \(error)")
@@ -59,15 +44,26 @@ class ViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name.PizzaChefFinishPizza, object: nil, queue: nil) { (noti) in
             guard let chef = noti.object as? PizzaChef,
-                let objects = self.fetchedResultsController.fetchedObjects,
+                let objects = PizzaChef.fetchedResultsController.fetchedObjects,
                 let i = objects.firstIndex(of: chef) else { return }
             self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
         }
         sharedBrowser = PeerBrowser(delegate: self)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let imported = UserDefaults.standard.bool(forKey: "ImportPizzaChefsIntoDatabase")
+        if imported {
+            
+        } else {
+            UserDefaults.standard.set(true, forKey: "ImportPizzaChefsIntoDatabase")
+            PizzaChef.importPizzaChefsIntoDatabase()
+        }
+    }
+    
     func addChildControllersAndSummaryLabels() {
-        guard let objects = fetchedResultsController.fetchedObjects else { return }
+        guard let objects = PizzaChef.fetchedResultsController.fetchedObjects else { return }
         let width = 130
         let height = 35
         for (i, chef) in objects.enumerated() {
@@ -91,26 +87,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func addPizza(count: Int) {
-        var pizzass:[[Pizza]] = Array(repeating: [], count: viewControllers.count)
-        for i in 0..<count {
-            guard let pizza = NSEntityDescription.insertNewObject(forEntityName: "Pizza", into: persistentContainer.viewContext) as? Pizza else { continue }
-            let name = String(format: "PIZZA_%04d", arc4random()%10000)
-            pizza.update(name: name)
-            pizzass[i%viewControllers.count].append(pizza)
-        }
-        for (i, pcvc) in viewControllers.enumerated() {
-            if let chef = pcvc.chef {
-                chef.addToPizzas(NSOrderedSet(array: pizzass[i]))
-                chef.workQueueAdd(pizzass[i])
-                self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
-            }
-            pcvc.tableView.reloadData()
-            pcvc.resetRemainLabel()
-        }
-        PizzaChef.save()
-    }
-    
     // MARK: Actions
 
     @IBAction func tapSwitch(_ sender: UISwitch) {
@@ -121,11 +97,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func add10Pizza(_ sender: UIButton) {
-        addPizza(count: 10)
+        PizzaChef.addPizzas(count: 10)
     }
     
     @IBAction func add100Pizza(_ sender: UIButton) {
-        addPizza(count: 100)
+        PizzaChef.addPizzas(count: 100)
     }
     
     @IBAction func tapHost(_ sender: UIButton) {
@@ -148,6 +124,13 @@ extension ViewController: NSFetchedResultsControllerDelegate, PizzaChefDelegate 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if viewControllers.count == 0 {
             addChildControllersAndSummaryLabels()
+        } else {
+            for (i, pcvc) in self.viewControllers.enumerated() {
+                guard let chef = pcvc.chef else { return }
+                self.summaryLabels[i].text = "\(chef.name): \(chef.remainCount)"
+                pcvc.tableView.reloadData()
+                pcvc.resetRemainLabel()
+            }
         }
     }
     
@@ -189,10 +172,9 @@ extension ViewController: PeerConnectionDelegate, PeerBrowserDelegate {
     // When a connection becomes ready, move into game mode.
     func connectionReady() {
         guard let name = delegatePizza?.name else { return }
-        let message = NWProtocolFramer.Message(gameMessageType: .selectedCharacter)
+        let message = NWProtocolFramer.Message(gameMessageType: .sendPizza)
         let context = NWConnection.ContentContext(identifier: "name",
                                                   metadata: [message])
-        // Send the application content along with the message.
         sharedConnection?.connection?.send(content: name.data(using: .utf8), contentContext: context, isComplete: true, completion: .idempotent)
 //        sharedConnection?.cancel()
 //        sharedConnection = nil
@@ -202,18 +184,25 @@ extension ViewController: PeerConnectionDelegate, PeerBrowserDelegate {
     func connectionFailed() { }
     
     func receivedMessage(content: Data?, message: NWProtocolFramer.Message) {
-        guard let content = content else {
+        guard let content = content,
+            let name = String(data: content, encoding: .utf8) else {
             return
         }
         switch message.gameMessageType {
-        case .invalid:
-            print("Received invalid message")
-        case .selectedCharacter:
-            if let name = String(data: content, encoding: .utf8) {
-                
-            }
-        case .move:
-            print("move")
+        case .receivedPizza:
+            self.view.hint(title: "Sended \(name)")
+        case .sendPizza:
+            guard let chefs = PizzaChef.fetchedResultsController.fetchedObjects else { return }
+            let index = Int.random(in: 0..<chefs.count)
+            chefs[index].receivePizzaFromOtherFactory(name: name)
+            self.view.hint(title: "\(chefs[index].name) received \(name)")
+            // 回复“收到”
+            let message = NWProtocolFramer.Message(gameMessageType: .receivedPizza)
+            let context = NWConnection.ContentContext(identifier: "name",
+                                                      metadata: [message])
+            sharedConnection?.connection?.send(content: name.data(using: .utf8), contentContext: context, isComplete: true, completion: .idempotent)
+        default:
+            print("Received other message.")
         }
     }
     

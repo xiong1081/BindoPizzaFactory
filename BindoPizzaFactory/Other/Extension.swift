@@ -78,5 +78,4 @@ extension UIImage {
 
 extension NSNotification.Name {
     static let PizzaChefFinishPizza = NSNotification.Name(rawValue: "PizzaChefFinishPizza")
-    static let PizzaChefAddPizzas = NSNotification.Name(rawValue: "PizzaChefAddPizzas")
 }

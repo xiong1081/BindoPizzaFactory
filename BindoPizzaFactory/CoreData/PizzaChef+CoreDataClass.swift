@@ -48,6 +48,43 @@ public class PizzaChef: NSManagedObject {
         }
     }
     
+    func receivePizzaFromOtherFactory(name: String) {
+        guard let pizza = NSEntityDescription.insertNewObject(forEntityName: "Pizza", into: persistentContainer.viewContext) as? Pizza else { return }
+        let name = String(format: "PIZZA_%04d", arc4random()%10000)
+        pizza.update(name: name)
+        addToPizzas(pizza)
+        workQueueAdd([pizza])
+        PizzaChef.save()
+    }
+    
+}
+
+extension PizzaChef {
+    
+    static var fetchedResultsController: NSFetchedResultsController<PizzaChef> = {
+        let fetchRequest = NSFetchRequest<PizzaChef>(entityName: "PizzaChef")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        // Create a fetched results controller and set its fetch request, context, and delegate.
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        return controller
+    }()
+    
+    class func addPizzas(count: Int) {
+        guard let chefs = PizzaChef.fetchedResultsController.fetchedObjects else { return }
+        var pizzass:[[Pizza]] = Array(repeating: [], count: chefs.count)
+        for i in 0..<count {
+            guard let pizza = NSEntityDescription.insertNewObject(forEntityName: "Pizza", into: persistentContainer.viewContext) as? Pizza else { continue }
+            let name = String(format: "PIZZA_%04d", arc4random()%10000)
+            pizza.update(name: name)
+            pizzass[i%chefs.count].append(pizza)
+        }
+        for (i, chef) in chefs.enumerated() {
+            chef.addToPizzas(NSOrderedSet(array: pizzass[i]))
+            chef.workQueueAdd(pizzass[i])
+        }
+        PizzaChef.save()
+    }
+    
     class func importPizzaChefsIntoDatabase() {
         let context = persistentContainer.viewContext
         context.perform {
@@ -72,7 +109,7 @@ public class PizzaChef: NSManagedObject {
         }
     }
     
-    class func save() {
+    static func save() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -83,5 +120,5 @@ public class PizzaChef: NSManagedObject {
             }
         }
     }
-
+    
 }
